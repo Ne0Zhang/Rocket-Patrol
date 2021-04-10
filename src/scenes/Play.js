@@ -39,14 +39,14 @@ class Play extends Phaser.Scene {
             borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
 
         // add spaceship (x3)
-        this.ship01 = new spaceship(this, game.config.width + borderUISize*6, borderUISize*4,
+        this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4,
              'spaceship', 0, 30).setOrigin(0,0);
-        this.ship02 = new spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + 
+        this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + 
             borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
-        this.ship03 = new spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 
+        this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 
             'spaceship', 0, 30).setOrigin(0,0);
 
-        // Definf our keys
+        // Define our keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -63,6 +63,7 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
     }
+
     update() {
         this.starfield.tilePositionX -= starSpeed;
 
@@ -89,18 +90,17 @@ class Play extends Phaser.Scene {
 
     checkCollision(rocket, ship) {
         // simple AABB checking
-        if (rocket.x < ship.x + ship.wdith &&
-            rocket.x + rocket.width > ship.x &&
+        if (rocket.x < ship.x + ship.width && 
+            rocket.x + rocket.width > ship.x && 
             rocket.y < ship.y + ship.height &&
-            rocket.height + rocket.y > ship.y) {
+            rocket.height + rocket.y > ship. y) {
                 return true;
         } else {
             return false;
         }
-
     }
 
-    shipExplosion(ship) {
+    shipExplode(ship) {
         // temporarily hide ship
         ship.alpha = 0;
         // create explosion sprite ate ship's position
